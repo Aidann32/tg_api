@@ -5,7 +5,12 @@ from rest_framework.authtoken.models import Token
 
 
 bot = telebot.TeleBot(settings.TELEGRAM_TOKEN, parse_mode=None)
-webhook_url = f'https://{settings.NGROK_HOST}/bot/{settings.TELEGRAM_TOKEN}/webhook/'
+if settings.DEBUG:
+    host = settings.NGROK_HOST
+else:
+    host = settings.HOST
+
+webhook_url = f'https://{host}/bot/{settings.TELEGRAM_TOKEN}/webhook/'
 
 
 @bot.message_handler(commands=['start'])
